@@ -1,0 +1,26 @@
+{
+  "Motorcycle": {
+    "version": "1.0",
+    "description": "2D Motorcycle Racing Game",
+    "type": "2D Game",
+    "category": "Games"
+  },
+  "BlueArchive": {
+    "version": "1.0",
+    "description": "Blue Archive Package",
+    "type": "Information Package",
+    "category": "Entertainment"
+  },
+  "Roshidere": {
+    "version": "1.0",
+    "description": "Roshidere Package",
+    "type": "Information Package",
+    "category": "Entertainment"
+  },
+  "NexasTools": {
+    "version": "1.0",
+    "description": "NexasOS System Utilities",
+    "type": "Utilities",
+    "category": "System"
+  }
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FPM Repository</title>
+
+<style>
+body {
+    background: #111820;
+    color: #e8f0eb;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 35px 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+h1 {
+    color: #71d69b;
+    font-size: 36px;
+}
+
+.subtitle {
+    color: #9eaaa3;
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+}
+
+.package {
+    background: #202b34;
+    border: 1px solid #35443c;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 14px;
+}
+
+.package h2 {
+    color: #78dca3;
+    margin: 0 0 8px;
+}
+
+.version {
+    color: #8da99a;
+    font-size: 13px;
+}
+
+footer {
+    text-align: center;
+    color: #77877e;
+    margin-top: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>FPM Repository</h1>
+    <div class="subtitle">
+        F2P Package Manager Repository
+    </div>
+    <p>Repository Version 1.0</p>
+</header>
+
+<main class="container" id="packages">
+    Loading packages...
+</main>
+
+<footer>
+    NexasOS Package Infrastructure<br>
+    © 2026 FPM Repository
+</footer>
+
+<script>
+fetch("repository.json")
+.then(response => {
+    if (!response.ok) {
+        throw new Error("Repository unavailable");
+    }
+    return response.json();
+})
+.then(packages => {
+    const container = document.getElementById("packages");
+    container.innerHTML = "";
+
+    for (const [name, info] of Object.entries(packages)) {
+        const card = document.createElement("section");
+        card.className = "package";
+
+        const title = document.createElement("h2");
+        title.textContent = name;
+
+        const version = document.createElement("div");
+        version.className = "version";
+        version.textContent =
+            "Version " + info.version + " | " + (info.category || "Other");
+
+        const description = document.createElement("p");
+        description.textContent = info.description;
+
+        card.append(title, version, description);
+
+        if (info.file) {
+            const link = document.createElement("a");
+            link.href = info.file;
+            link.textContent = "Download package";
+            link.style.color = "#78dca3";
+            card.append(link);
+        } else {
+            const status = document.createElement("small");
+            status.textContent = "Package archive not uploaded yet";
+            status.style.color = "#b5a987";
+            card.append(status);
+        }
+
+        container.append(card);
+    }
+})
+.catch(error => {
+    document.getElementById("packages").textContent =
+        "Repository error: " + error.message;
+});
+</script>
+
+</body>
+</html>
